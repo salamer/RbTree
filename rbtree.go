@@ -7,15 +7,11 @@ const (
 	BLACK = 1
 )
 
-type keytype int
-
-type valuetype interface{}
-
 type node struct {
 	left, right, parent *node
 	color               int
-	Key                 keytype
-	Value               valuetype
+	Key                 int
+	Value               interface{}
 }
 
 type Tree struct {
@@ -29,7 +25,7 @@ func NewTree() *Tree {
 }
 
 //Find find the node and return its value
-func (t *Tree) Find(key keytype) interface{} {
+func (t *Tree) Find(key int) interface{} {
 	n := t.findnode(key)
 	if n != nil {
 		return n.Value
@@ -38,7 +34,7 @@ func (t *Tree) Find(key keytype) interface{} {
 }
 
 //FindIt find the node and return it as a iterator
-func (t *Tree) FindIt(key keytype) *node {
+func (t *Tree) FindIt(key int) *node {
 	return t.findnode(key)
 }
 
@@ -67,7 +63,7 @@ func (t *Tree) Clear() {
 }
 
 //Insert insert the key-value pair into the rbtree
-func (t *Tree) Insert(key keytype, value valuetype) {
+func (t *Tree) Insert(key int, value interface{}) {
 	x := t.root
 	var y *node
 
@@ -97,7 +93,7 @@ func (t *Tree) Insert(key keytype, value valuetype) {
 }
 
 //Delete delete the node by key
-func (t *Tree) Delete(key keytype) {
+func (t *Tree) Delete(key int) {
 	z := t.findnode(key)
 	if z == nil {
 		return
@@ -294,7 +290,7 @@ func (t *Tree) Preorder() {
 }
 
 //findnode find the node by key and return it,if not exists return nil
-func (t *Tree) findnode(key keytype) *node {
+func (t *Tree) findnode(key int) *node {
 	x := t.root
 	for x != nil {
 		if key < x.Key {
