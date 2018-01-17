@@ -7,9 +7,7 @@ const (
 	BLACK = 1
 )
 
-type keytype interface {
-	LessThan(interface{}) bool
-}
+type keytype int
 
 type valuetype interface{}
 
@@ -75,7 +73,7 @@ func (t *Tree) Insert(key keytype, value valuetype) {
 
 	for x != nil {
 		y = x
-		if key.LessThan(x.Key) {
+		if key < x.Key {
 			x = x.left
 		} else {
 			x = x.right
@@ -89,7 +87,7 @@ func (t *Tree) Insert(key keytype, value valuetype) {
 		z.color = BLACK
 		t.root = z
 		return
-	} else if z.Key.LessThan(y.Key) {
+	} else if z.Key < y.Key {
 		y.left = z
 	} else {
 		y.right = z
@@ -299,7 +297,7 @@ func (t *Tree) Preorder() {
 func (t *Tree) findnode(key keytype) *node {
 	x := t.root
 	for x != nil {
-		if key.LessThan(x.Key) {
+		if key < x.Key {
 			x = x.left
 		} else {
 			if key == x.Key {
