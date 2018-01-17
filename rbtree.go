@@ -9,7 +9,7 @@ const (
 
 type keytype int
 
-type valuetype string
+type valuetype interface{}
 
 type node struct {
 	left, right, parent *node
